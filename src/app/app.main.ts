@@ -1,3 +1,5 @@
+import * as angular from "angular";
+
 angular
   .module("codecraft", [
     "ngResource",
@@ -8,19 +10,19 @@ angular
     "mgcrea.ngStrap",
     "toaster",
     "ngAnimate",
-    "ui.router"
+    "ui.router",
   ])
-  .config(function(
+  .config(function (
     $httpProvider,
     $resourceProvider,
     laddaProvider,
     $datepickerProvider
   ) {
     laddaProvider.setOption({
-      style: "expand-right"
+      style: "expand-right",
     });
     angular.extend($datepickerProvider.defaults, {
       dateFormat: "d/M/yyyy",
-      autoclose: true
+      autoclose: true,
     });
   });

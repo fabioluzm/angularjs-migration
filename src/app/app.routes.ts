@@ -1,37 +1,39 @@
+import * as angular from "angular";
+
 angular
   .module("codecraft")
-  .config(function($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state("list", {
         url: "/",
         views: {
           main: {
             templateUrl: "templates/list.html",
-            controller: "PersonListController"
+            controller: "PersonListController",
           },
           search: {
             templateUrl: "templates/searchform.html",
-            controller: "SearchController"
-          }
-        }
+            controller: "SearchController",
+          },
+        },
       })
       .state("edit", {
         url: "/edit/:email",
         views: {
           main: {
             templateUrl: "templates/edit.html",
-            controller: "PersonEditController"
-          }
-        }
+            controller: "PersonEditController",
+          },
+        },
       })
       .state("create", {
         url: "/create",
         views: {
           main: {
             templateUrl: "templates/create.html",
-            controller: "PersonCreateController"
-          }
-        }
+            controller: "PersonCreateController",
+          },
+        },
       });
 
     $urlRouterProvider.otherwise("/");

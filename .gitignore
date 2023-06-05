@@ -7,5 +7,3 @@ tmp
 .idea
 src/libs
 data/db.json
-src/dist/
-dist/
