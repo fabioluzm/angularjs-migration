@@ -1,13 +1,13 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
-angular.module("codecraft").factory("Contact", function ($resource) {
+angular.module("codecraft").factory("Contact", function($resource) {
   return $resource(
     "http://localhost:3000/contacts/:id",
     {id: "@id"},
     {
       update: {
-        method: "PUT",
-      },
+        method: "PUT"
+      }
     }
   );
 });

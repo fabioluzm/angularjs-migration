@@ -1,7 +1,7 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
 angular
   .module("codecraft")
-  .controller("PersonListController", function ($scope, ContactService) {
+  .controller("PersonListController", function($scope, ContactService) {
     $scope.contacts = ContactService;
   });

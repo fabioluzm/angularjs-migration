@@ -1,20 +1,20 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
-angular.module("codecraft").directive("ccCard", function () {
+angular.module("codecraft").directive("ccCard", function() {
   return {
     restrict: "AE",
     templateUrl: "templates/card.html",
     scope: {
-      user: "=",
+      user: "="
     },
-    controller: function ($scope, ContactService) {
+    controller: function($scope, ContactService) {
       $scope.isDeleting = false;
-      $scope.deleteUser = function () {
+      $scope.deleteUser = function() {
         $scope.isDeleting = true;
-        ContactService.removeContact($scope.user).then(function () {
+        ContactService.removeContact($scope.user).then(function() {
           $scope.isDeleting = false;
         });
       };
-    },
+    }
   };
 });

@@ -10,7 +10,7 @@ The project is bootstrapped using npm but at the same time since this is a use c
 
 ## Running
 
-We have a simple server side which we run using
+We have a simple server side which we run using 
 
 `npm run server` - this runs a json-server and refreshes the data bases on each run so the deleted contacts will appear again.
 
