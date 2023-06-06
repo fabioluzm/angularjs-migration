@@ -99,10 +99,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular_ui_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_angular_ui_router__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_main__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__services__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__directives__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__filters__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__controllers__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__app_routes__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__filters__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__app_routes__ = __webpack_require__(31);
 
 
 
@@ -117,7 +116,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
+// import './directives';
+// import './controllers';
 
 
 
@@ -51730,71 +51730,12 @@ __WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft").factory("Contact", 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_directive__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__spinner_directive__ = __webpack_require__(24);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__default_image_filter__ = __webpack_require__(23);
 
 
 
 /***/ }),
 /* 23 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-
-__WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft").directive("ccCard", function () {
-    return {
-        restrict: "AE",
-        templateUrl: "templates/card.html",
-        scope: {
-            user: "="
-        },
-        controller: function ($scope, ContactService) {
-            $scope.isDeleting = false;
-            $scope.deleteUser = function () {
-                $scope.isDeleting = true;
-                ContactService.removeContact($scope.user).then(function () {
-                    $scope.isDeleting = false;
-                });
-            };
-        }
-    };
-});
-
-
-/***/ }),
-/* 24 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-
-__WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft").directive("ccSpinner", function () {
-    return {
-        restrict: "AE",
-        templateUrl: "templates/spinner.html",
-        scope: {
-            isLoading: "=",
-            message: "@"
-        }
-    };
-});
-
-
-/***/ }),
-/* 25 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__default_image_filter__ = __webpack_require__(26);
-
-
-
-/***/ }),
-/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51815,18 +51756,164 @@ __WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft").filter("defaultImag
 
 
 /***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_component__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__person_create_component__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__person_edit_component__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__person_list_component__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__search_component__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__spinner_component__ = __webpack_require__(30);
+
+
+
+
+
+
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+
+var CardComponent = {
+    selector: "ccCard",
+    template: "\n    <div class=\"col-md-6\">\n      <div class=\"well well-sm\">\n        <div class=\"row\">\n          <div class=\"col-md-4\">\n            <img\n              ng-src=\"{{ $ctrl.user.photo | defaultImage  }}\"\n              alt=\"\"\n              class=\"img-rounded img-responsive\"\n            />\n          </div>\n          <div class=\"col-md-8\">\n            <h4>\n              {{ $ctrl.user.name }}\n              <i\n                class=\"fa\"\n                ng-class=\"{'fa-female':$ctrl.user.sex == 'F', 'fa-male': $ctrl.user.sex == 'M'}\"\n              ></i>\n            </h4>\n            <small\n              >{{ $ctrl.user.city }}, {{ $ctrl.user.country }}\n              <i class=\"fa fa-map-marker\"></i>\n            </small>\n            <p>\n              <i class=\"fa fa-envelope-o\"></i>\n              {{ $ctrl.user.email }}\n              <br />\n              <i class=\"fa fa-gift\"></i>\n              {{ $ctrl.user.birthdate | date:\"longDate\"}}\n            </p>\n\n            <a class=\"btn btn-default btn-sm\" ui-sref=\"edit({email:$ctrl.user.email})\">\n              <i class=\"fa fa-pencil\"></i>\n              &nbsp;Edit\n            </a>\n\n            <a\n              class=\"btn btn-danger btn-sm\"\n              ladda=\"isDeleting\"\n              ng-click=\"delete$ctrl.user()\"\n            >\n              <i class=\"fa fa-trash\"></i>\n              &nbsp;Delete\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  ",
+    bindings: {
+        user: "=",
+    },
+    controller: /** @class */ (function () {
+        function CardController(ContactService) {
+            this.ContactService = ContactService;
+            this.isDeleting = false;
+        }
+        CardController.prototype.deleteUser = function () {
+            var _this = this;
+            this.isDeleting = true;
+            this.ContactService.removeContact(this.user).then(function () {
+                _this.isDeleting = false;
+            });
+        };
+        return CardController;
+    }()),
+};
+__WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft").component(CardComponent.selector, CardComponent);
+// angular.module("codecraft").directive("ccCard", function() {
+//   return {
+//     restrict: "AE",
+//     templateUrl: "templates/card.html",
+//     scope: {
+//       user: "="
+//     },
+//     controller: function($scope, ContactService) {
+//       $scope.isDeleting = false;
+//       $scope.deleteUser = function() {
+//         $scope.isDeleting = true;
+//         ContactService.removeContact($scope.user).then(function() {
+//           $scope.isDeleting = false;
+//         });
+//       };
+//     }
+//   };
+// });
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+
+var PersonCreateComponent = {
+    selector: "personCreate",
+    template: "\n    <div class=\"col-md-8 col-md-offset-2\">\n      <form class=\"form-horizontal\"\n            ng-submit=\"$ctrl.save()\"\n            novalidate>\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">\n\n            {{mode}}\n\n            <div class=\"pull-right\">\n              <button class=\"btn btn-primary btn-sm\"\n                      ladda=\"$ctrl.contacts.isSaving\"\n                      type=\"submit\">Create\n              </button>\n            </div>\n            <div class=\"clearfix\"></div>\n\n          </div>\n          <div class=\"panel-body\">\n            <ng-include src=\"'templates/form.html'\"></ng-include>\n          </div>\n        </div>\n      </form>\n    </div>\n    <div class=\"col-md-8 col-md-offset-2\">\n      <form class=\"form-horizontal\"\n            ng-submit=\"$ctrl.save()\"\n            novalidate>\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">\n\n            {{mode}}\n\n            <div class=\"pull-right\">\n              <button class=\"btn btn-primary btn-sm\"\n                      ladda=\"$ctrl.contacts.isSaving\"\n                      type=\"submit\">Create\n              </button>\n            </div>\n            <div class=\"clearfix\"></div>\n\n          </div>\n          <div class=\"panel-body\">\n            <ng-include src=\"'templates/form.html'\"></ng-include>\n          </div>\n        </div>\n      </form>\n    </div>\n  ",
+    bindings: {},
+    controller: /** @class */ (function () {
+        function PersonCreateController($state, ContactService) {
+            this.person = {};
+            this.$state = $state;
+            this.contacts = ContactService;
+        }
+        PersonCreateController.prototype.save = function () {
+            var _this = this;
+            console.log("createContact");
+            this.contacts.createContact(this.person).then(function () {
+                _this.$state.go("list");
+            });
+        };
+        return PersonCreateController;
+    }()),
+};
+__WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft")
+    .component(PersonCreateComponent.selector, PersonCreateComponent);
+
+
+/***/ }),
 /* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__person_create_controller__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__person_edit_controller__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__person_list_controller__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__search_controller__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 
-
-
-
+var PersonEditComponent = {
+    selector: "personEdit",
+    template: "\n    <div class=\"col-md-8 col-md-offset-2\">\n      <form class=\"form-horizontal\"\n            ng-submit=\"$ctrl.save()\"\n            novalidate>\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">\n\n            {{mode}}\n\n            <div class=\"pull-right\">\n              <button class=\"btn btn-primary btn-sm\"\n                      ladda=\"$ctrl.contacts.isSaving\"\n                      type=\"submit\">Save\n              </button>\n\n              <button class=\"btn btn-danger btn-sm\"\n                      ladda=\"$ctrl.contacts.isDeleting\"\n                      ng-click=\"$ctrl.remove()\">Delete\n              </button>\n            </div>\n            <div class=\"clearfix\"></div>\n\n          </div>\n          <div class=\"panel-body\">\n\n            <ng-include src=\"'templates/form.html'\"></ng-include>\n\n          </div>\n        </div>\n      </form>\n    </div>\n  ",
+    bindings: {},
+    controller: /** @class */ (function () {
+        function PersonEditController($stateParams, $state, ContactService) {
+            this.person = {};
+            this.$stateParams = $stateParams;
+            this.$state = $state;
+            this.contacts = ContactService;
+            this.person = this.contacts.getPerson(this.$stateParams.email);
+        }
+        PersonEditController.prototype.save = function () {
+            var _this = this;
+            this.contacts.updateContact(this.person).then(function () {
+                _this.$state.go("list");
+            });
+        };
+        PersonEditController.prototype.remove = function () {
+            var _this = this;
+            this.contacts.removeContact(this.person).then(function () {
+                _this.$state.go("list");
+            });
+        };
+        return PersonEditController;
+    }()),
+};
+__WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft")
+    .component(PersonEditComponent.selector, PersonEditComponent);
+// angular
+//   .module("codecraft")
+//   .controller("PersonEditController", function(
+//     $scope,
+//     $stateParams,
+//     $state,
+//     ContactService
+//   ) {
+//     $scope.contacts = ContactService;
+//     $scope.person = $scope.contacts.getPerson($stateParams.email);
+//     $scope.save = function() {
+//       $scope.contacts.updateContact($scope.person).then(function() {
+//         $state.go("list");
+//       });
+//     };
+//     $scope.remove = function() {
+//       $scope.contacts.removeContact($scope.person).then(function() {
+//         $state.go("list");
+//       });
+//     };
+//   });
 
 
 /***/ }),
@@ -51837,17 +51924,19 @@ __WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft").filter("defaultImag
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 
+var PersonListComponent = {
+    selector: "personList",
+    template: "\n    <div class=\"col-md-12\">\n      <div class=\"row\"\n        infinite-scroll=\"$ctrl.contacts.loadMore()\"\n        infinite-scroll-immediate-check=\"false\"\n        infinite-scroll-distance=\"1\"\n      >\n        <cc-card\n          ng-repeat=\"person in $ctrl.contacts.persons\"\n          user=\"person\"\n        >\n        </cc-card>\n      </div>\n\n      <div ng-show=\"$ctrl.contacts.persons.length == 0 && !$ctrl.contacts.isLoading\">\n        <div class=\"alert alert-info\">\n          <p class=\"text-center\">No results found for search term '{{ $ctrl.contacts.search }}'</p>\n        </div>\n      </div>\n      <cc-spinner\n        is-loading=\"$ctrl.contacts.isLoading\"\n        message=\"Loading...\"\n      >\n      </cc-spinner>\n    </div>\n  ",
+    bidings: {},
+    controller: /** @class */ (function () {
+        function PersonListController(ContactService) {
+            this.contacts = ContactService;
+        }
+        return PersonListController;
+    }()),
+};
 __WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft")
-    .controller("PersonCreateController", function ($scope, $state, ContactService) {
-    $scope.contacts = ContactService;
-    $scope.person = {};
-    $scope.save = function () {
-        console.log("createContact");
-        $scope.contacts.createContact($scope.person).then(function () {
-            $state.go("list");
-        });
-    };
-});
+    .component(PersonListComponent.selector, PersonListComponent);
 
 
 /***/ }),
@@ -51858,21 +51947,22 @@ __WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft")
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 
+var SearchComponent = {
+    selector: "search",
+    template: "\n    <form class=\"navbar-form navbar-left\">\n      <div class=\"form-group\">\n        <input type=\"text\"\n          class=\"form-control\"\n          id=\"name\"\n          ng-model=\"$ctrl.contacts.search\"\n          ng-model-options=\"{ debounce: 300 }\"\n          placeholder=\"Search name...\"\n          ng-change=\"$ctrl.contacts.doSearch()\"\n        />\n      </div>\n      <div class=\"form-group\">\n        <select class=\"form-control\"\n          ng-model=\"$ctrl.contacts.sorting\"\n          ng-change=\"$ctrl.contacts.doSearch()\"\n        >\n          <option value=\"name\">Name</option>\n          <option value=\"email\">Email</option>\n        </select>\n      </div>\n      <div class=\"form-group\">\n        <select class=\"form-control\"\n          ng-model=\"$ctrl.contacts.ordering\"\n          ng-change=\"$ctrl.contacts.doSearch()\"\n        >\n          <option value=\"ASC\">ASC</option>\n          <option value=\"DESC\">DESC</option>\n        </select>\n      </div>\n    </form>\n  ",
+    bindings: {},
+    controller: /** @class */ (function () {
+        function SearchController(ContactService) {
+            this.contacts = ContactService;
+        }
+        SearchController.prototype.loadMore = function () {
+            this.contacts.loadMore();
+        };
+        return SearchController;
+    }()),
+};
 __WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft")
-    .controller("PersonEditController", function ($scope, $stateParams, $state, ContactService) {
-    $scope.contacts = ContactService;
-    $scope.person = $scope.contacts.getPerson($stateParams.email);
-    $scope.save = function () {
-        $scope.contacts.updateContact($scope.person).then(function () {
-            $state.go("list");
-        });
-    };
-    $scope.remove = function () {
-        $scope.contacts.removeContact($scope.person).then(function () {
-            $state.go("list");
-        });
-    };
-});
+    .controller(SearchComponent.selector, SearchComponent);
 
 
 /***/ }),
@@ -51883,31 +51973,25 @@ __WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft")
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 
+var SpinnerComponent = {
+    selector: "ccSpinner",
+    template: "\n  <div class=\"spinner\"\n    ng-show=\"$ctrl.isLoading\"\n  >\n    <span us-spinner=\"{radius:8, width:5, length: 3, lines:9}\"></span>\n\n    <p>{{ $ctrl.message }}</p>\n  </div>\n",
+    bindings: {
+        isLoading: "=",
+        message: "@",
+    },
+    controller: /** @class */ (function () {
+        function SpinnerController() {
+        }
+        return SpinnerController;
+    }()),
+};
 __WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft")
-    .controller("PersonListController", function ($scope, ContactService) {
-    $scope.contacts = ContactService;
-});
+    .component(SpinnerComponent.selector, SpinnerComponent);
 
 
 /***/ }),
 /* 31 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-
-__WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft")
-    .controller("SearchController", function ($scope, ContactService) {
-    $scope.contacts = ContactService;
-    $scope.loadMore = function () {
-        $scope.contacts.loadMore();
-    };
-});
-
-
-/***/ }),
-/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51921,32 +52005,30 @@ __WEBPACK_IMPORTED_MODULE_0_angular__["module"]("codecraft")
         url: "/",
         views: {
             main: {
-                templateUrl: "templates/list.html",
-                controller: "PersonListController"
+                // templateUrl: "templates/list.html",
+                // controller: "PersonListController"
+                template: "<person-list></person-list>",
             },
             search: {
-                templateUrl: "templates/searchform.html",
-                controller: "SearchController"
-            }
-        }
+                template: "<search></search>",
+            },
+        },
     })
         .state("edit", {
         url: "/edit/:email",
         views: {
             main: {
-                templateUrl: "templates/edit.html",
-                controller: "PersonEditController"
-            }
-        }
+                template: "<person-edit></person-edit>",
+            },
+        },
     })
         .state("create", {
         url: "/create",
         views: {
             main: {
-                templateUrl: "templates/create.html",
-                controller: "PersonCreateController"
-            }
-        }
+                template: "<person-create></person-create>",
+            },
+        },
     });
     $urlRouterProvider.otherwise("/");
 });
