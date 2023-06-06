@@ -1,4 +1,4 @@
-import * as angular from 'angular';
+import * as angular from "angular";
 
 let PersonEditComponent = {
   selector: "personEdit", // <person-edit>
@@ -37,7 +37,6 @@ let PersonEditComponent = {
   `,
   bindings: {},
   controller: class PersonEditController {
-
     public person = {};
     public contacts;
 
@@ -55,16 +54,14 @@ let PersonEditComponent = {
       this.contacts.updateContact(this.person).then(() => {
         this.$state.go("list");
       });
-    };
+    }
 
     remove() {
       this.contacts.removeContact(this.person).then(() => {
         this.$state.go("list");
       });
-    };
-
-  }
-
+    }
+  },
 };
 
 angular
