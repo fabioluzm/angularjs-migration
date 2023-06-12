@@ -26,10 +26,11 @@ import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 import {HttpClientModule} from "@angular/common/http";
 
 import {Contact} from "./services/contact.resource";
+import {ContactService} from "./services/contact.service";
 
 @NgModule({
   imports: [BrowserModule, UpgradeModule, HttpClientModule],
-  providers: [Contact],
+  providers: [Contact, ContactService],
 })
 export class AppModule {
   // Override Angular bootstrap so it doesn't do anything

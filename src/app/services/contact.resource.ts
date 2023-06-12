@@ -1,4 +1,4 @@
-import * as angular from "angular";
+// import * as angular from "angular";
 import {HttpClient} from "@angular/common/http";
 import {Inject, Injectable} from "@angular/core";
 import {downgradeInjectable} from "@angular/upgrade/static";
@@ -13,18 +13,14 @@ export class Contact {
     // this.$http = $http;
   }
 
-  query(params: {string: string}) {
-    console.log(
-      "OBSERVABLE",
-      this.http.get(this.apiRoot, {params}).toPromise()
-    );
-    return this.http.get(this.apiRoot, {params}).toPromise();
+  query(params: {[key: string]: string}): Promise<Array<any>> {
+    return this.http.get<Array<any>>(this.apiRoot, {params}).toPromise();
   }
-  get(id, params?: {string: string}) {
+  get(id, params?: {[key: string]: string}) {
     return this.http.get(`${this.apiRoot}/${id}`, {params}).toPromise();
   }
   save(data: any) {
-    return this.http.post(this.apiRoot, data);
+    return this.http.post(this.apiRoot, data).toPromise();
   }
   update(data: any) {
     return this.http.put(`${this.apiRoot}/${data.id}`, data).toPromise();
@@ -35,4 +31,4 @@ export class Contact {
 }
 
 // angular.module("codecraft").service("Contact", Contact);
-angular.module("codecraft").factory("Contact", downgradeInjectable(Contact));
+// angular.module("codecraft").factory("Contact", downgradeInjectable(Contact));
